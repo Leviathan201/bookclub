@@ -1,33 +1,52 @@
+<!-- Liang, Y.D. (2019). Introduction to Java Programming and Data Structures:
+Comprehensive Version (12th ed.). Pearson Education, Inc.
+Modifications by R. Krasso, 2021
+Additional Modifications by James Tabor -->
+
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Welcome | Bookclub</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-          integrity="sha256-EVSTQN3/azprG1Anm3QDgpJLIm9NaoBYz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+    <title>Bookclub | Welcome</title>
+    <!-- Bootstrap StyleSheet CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
           crossorigin="anonymous">
+
 </head>
 
 <body>
-<div th:insert="~{fragments/header :: header}"></div>
+<div th:insert="~{fragments/header :: header}"></div> <!-- Divider between Title and Information-->
 
 <main>
     <section class="py-5 text-center container">
         <div class="row py-lg-5">
             <div class="col-lg-6 col-md-8 mx-auto">
-                <h1 class="fw-light">Book Club</h1>
-                <p class="lead text-muted">
-                    Welcome to the Book Club app, your "one-stop shop" for all of your book club needs.
-                    Below you will find a list of this month's top-10 favorite books.
-                    Select the book to see its details.
+                <h1 class="fw-light">Book Club</h1> <!-- Book Club title-->
+                <p class="lead text-muted"> <!-- Text information about the book club -->
+                    Welcome to the Book Club app, your "one stop
+                    shop" for all of your book club needs. Below you will find a list of
+                    this months top 10 favorite books. Select the book to see it's details.
                 </p>
             </div>
         </div>
+        <div class="col" th:each="book : ${books}"> <!-- Iterating the list of the books -->
+            <p class="card-text">
+                <span th:text="${book.getTitle()}"></span> <!-- Binding the text to the HTML elements -->
+                <br />
+                <small class="text-muted"><em th:text="${book.getDescription()}"></em></small>
+            </p>
+            <div class="btn-group">
+                <a href="#" th:href="@{/{id}(id=${book.getIsbn()})}" class="btn btn-sm btn-outline-secondary">View</a> <!-- Allows you to see a single book -->
+            </div>
+            <hr>
     </section>
+
+
 </main>
 
-    <div th:insert="~{fragments/footer :: footer}"></div>
-    <div th:insert="~{fragments/scriptFooter :: scriptFooter}"></div>
-
+<div th:insert="~{fragments/footer :: footer}"></div>
+<div th:insert="~{fragments/scriptFooter :: scriptFooter}"></div>
 </body>
 </html>
