@@ -1,0 +1,41 @@
+<!-- Liang, Y.D. (2019). Introduction to Java Programming and Data Structures:
+Comprehensive Version (12th ed.). Pearson Education, Inc.
+Modifications by R. Krasso, 2021
+Additional Modifications by James Tabor -->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<!-- Header design -->
+<header th:fragment="header">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light"> <!--  Header color -->
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Bookclub</a>
+            <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false"
+                    aria-label="Toggle navigation"> <!--  Makes sure that the buttons work -->
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="navbar-item">
+                        <a class="nav-link" href="/about" th:href="@{/about}">About Us</a> <!-- Gives you the about us link -->
+                    </li>
+                    <li class="navbar-item">
+                        <a class="nav-link" href="/contact" th:href="@{/contact}">Contact Us</a> <!-- Gives you the contact us link -->
+                    </li>
+                    <li class="navbar-item">
+                        <a class="nav-link" href="/wishlist" th:href="@{/wishlist}">Wishlist</a> <!-- Gives you the link to the wishlist -->
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+</body>
+</html>
