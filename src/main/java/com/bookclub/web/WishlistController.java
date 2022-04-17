@@ -9,7 +9,8 @@ package com.bookclub.web;
 
 import com.bookclub.model.WishlistItem;
 import com.bookclub.service.dao.WishlistDao;
-import com.bookclub.service.impl.MemWishlistDao;
+import com.bookclub.service.impl.MongoWishlistDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,9 +24,17 @@ import java.util.List;
 @RequestMapping("/wishlist")
 public class WishlistController {
 
+    WishlistDao wishlistDao = new MongoWishlistDao(); //Holds the wishlistdao here
+
+    @Autowired
+    //Accepts the wishlistdao here and lists it
+    private void setWishlistDao(WishlistDao wishlistDao) {
+
+        this.wishlistDao = wishlistDao;
+    }
+
     @RequestMapping(method = RequestMethod.GET)
     public String showWishlist(Model model) {
-        MemWishlistDao wishlistDao = new MemWishlistDao(); //Holds new wishlist
 
         List<WishlistItem> wishlist = wishlistDao.list();
 
@@ -49,6 +58,8 @@ public class WishlistController {
         if (bindingResult.hasErrors()) {  //If statement added if the binding results has errors
             return "wishlist/new"; //Redirects the user back to a new wishlist
         }
+
+        wishlistDao.add(wishlistItem);
 
         return "redirect:/wishlist"; //Return back to the wishlist
     }
