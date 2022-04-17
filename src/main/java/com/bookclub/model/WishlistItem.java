@@ -9,8 +9,14 @@ package com.bookclub.model;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection = "wishlist")
 public class WishlistItem {
+
+    @Id
+    private String id; //Holds the ID
 
     @NotNull
     @NotEmpty(message = "ISBN is a required field.") //Should tell the user to provide it with a ISBN
@@ -29,25 +35,33 @@ public class WishlistItem {
     }
 
     //Getters and setters
+    public String getId() {
+        return id;
+    }
+
     public void setIsbn(String isbn) {
+
         this.isbn = isbn;
     }
 
     public String getIsbn() {
+
         return isbn;
     }
 
     public void setTitle(String title) {
+
         this.title = title;
     }
 
     public String getTitle() {
+
         return title;
     }
 
     //Override and tostring to return the string as the below format
     @Override
     public String toString() {
-        return String.format("WishlistItem{isbn=%s, title=%s}", isbn, title);
+        return String.format("WishlistItem{id=%s, isbn=%s, title=%s}", id, isbn, title);
     }
 }
