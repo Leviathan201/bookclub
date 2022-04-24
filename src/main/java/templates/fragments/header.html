@@ -32,6 +32,17 @@ Additional Modifications by James Tabor -->
                     <li class="navbar-item">
                         <a class="nav-link" href="/wishlist" th:href="@{/wishlist}">Wishlist</a> <!-- Gives you the link to the wishlist -->
                     </li>
+                    <div class="nav navbar-nav ml-auto w-100 justify-content-center">
+                        <div sec:authorize="isAuthenticated()"> <!-- Authenticates the user if the user put in the correct password/username -->
+                            Logged in as <strong sec:authentication="name"></strong> <!-- Tells you which user your logged in as -->
+                        </div>
+                    </div>
+
+                    <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
+                        <li class="nav-item float-end">
+                            <a href="/logout" th:href="@{/logout}" class="nav-link float-end">Logout</a> <!-- Provided user the ability to logout -->
+                        </li>
+                    </ul>
                 </ul>
             </div>
         </div>
