@@ -34,13 +34,8 @@ public class WishlistController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String showWishlist(Model model) {
-
-        List<WishlistItem> wishlist = wishlistDao.list();
-
-        model.addAttribute("wishlist", wishlist); //Model attributes that have a key wishlist and variable wishlist
-
-        return "wishlist/list"; //Returns you to the wishlist list
+    public String showWishlist() {
+        return "wishlist/list"; //Returns the list of the wishlist
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/new") //Decorator for a new path
