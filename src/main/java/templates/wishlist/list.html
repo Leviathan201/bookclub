@@ -24,30 +24,51 @@ Additional Modifications by James Tabor -->
     <br />
 
     <p class="text-center">
-        <a href="/wishlist/new" th:href="@{/wishlist/new}" class="btn btn-outline-secondary text-center">New Wishlist Item</a> <!-- Anchor tag for new wishlist item -->
+        <a href="/wishlist/new" th:href="@{/wishlist/new}" class="btn btn-outline-secondary text-center">New Wishlist Item</a>
     </p>
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">ISBN</th> <!-- ISBN Title -->
-            <th scope="col">Title</th> <!-- Title of the book -->
-            <th scope="col">Functions</th> <!-- Title for the functions -->
-        </tr>
-        </thead>
-        <tbody th:each="item : ${wishlist}">
-        <tr>
-            <td th:text="${item.getIsbn()}"></td> <!-- Provides user with the ISBN -->
-            <td th:text="${item.getTitle()}"></td> <!-- Provides user with a title of the book -->
-            <td>
-                <a href="#" class="link">Edit</a> |<!-- Provides user with an edit option for the book -->
-                <a href="#" class="link">Delete</a> <!-- Provides user with a delete option to delete a book from their wish list -->
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div id="wishlist"></div>
 </div>
 
-<div th:insert="~{fragments/scriptFooter :: scriptFooter}"></div>
+    <div th:insert="~{fragments/scriptFooter :: scriptFooter}"></div>
+
+    <script type="text/javascript">
+        class HttpClient {
+            async get(url, params = "") {
+                url = new URL(url);
+                url.search = new URLSearchParams(params).toString();
+
+                console.log(url.toString()); <!-- Looks for the toString based on the URL search-->
+
+                const res = await fetch(url.toString(), {
+                    method: 'GET', <!-- Get request that will fetch the spring controller -->
+                });
+
+                return res.json();
+            }
+        }
+
+        function buildTable (books) {
+            let tableString = `<table class="table"><tr><th>ISBN</th><th>Title</th><th>Functions</th></tr>`; <!-- Provides book within a table with title and ISBN code -->
+
+            for (let book of books) {
+                tableString += `<tr><td>${book.isbn}</td><td>${book.title}</td><td><a href="#">Edit</a> | <a href="#">Delete</a></td></tr>`; <!-- Allows user to delete a book from the table -->
+            }
+
+            tableString += `</table>`
+
+            return tableString;
+        }
+
+        const http = new HttpClient();
+
+        http.get('http://localhost:8080/api/wishlist').then(res => {
+            console.log(res);
+            document.getElementById("wishlist").innerHTML = buildTable(res); <!-- Creates wishlist based on the fetch commmand -->
+        }).catch(e => {
+            console.log(e);
+        }
+        )
+    </script>
 </body>
 </html>
