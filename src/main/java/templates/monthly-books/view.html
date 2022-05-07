@@ -3,45 +3,57 @@ Comprehensive Version (12th ed.). Pearson Education, Inc.
 Modifications by R. Krasso, 2021
 Additional Modifications by James Tabor -->
 
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Bookclub | Welcome</title> <!-- Page Title -->
-    <!-- Bootstrap StyleSheet CDN -->
+    <title>Bookclub | Monthly Book Details</title>
+
+    <!--  Bootstrap StyleSheet CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
           rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
           crossorigin="anonymous">
 </head>
-
 <body>
-<div th:insert="~{fragments/header :: header}"></div> <!-- Divider between title and book information -->
+<div th:insert="~{fragments/header :: header}"></div>
 
-<main>
-    <section class="py-5 text-center container">
-        <a href="/" th:href="@{/}">Return to books</a> <!-- Return to books page -->
-        <div class="row py-lg-5">
-            <p>Book Title: <span th:text="${book.getTitle()}"></span></p> <!-- Displays Title of book -->
-            <p>Description: <span th:text="${book.getDescription()}"></span></p> <!-- Displays Description of book -->
-            <p>ISBN: <span th:text="${book.getIsbn()}"></span></p> <!-- Displays ISBN of book -->
-            <p>Number of Pages: <span th:text="${book.getNumOfPages()}"></span></p> <!-- Displays Number of Pages of book -->
-            <p><div class="col-lg-6 col-md-8 mx-auto">
+<div class="container py-5" style="width: 50%;">
+
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-center">Book of the month details</h1>
+        </div>
+
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title" th:text="${book.getTitle()}"></h4>
+
+                    <div class="card-subtitle text-muted">
+                        Pages: <span th:text="${book.getNumOfPages()}"></span>
+                    </div>
+
+                    <br />
+
+                    <div class="card-text">
+                        <p>
+                            <strong>Description:</strong> <br /><span th:text="${book.getDescription()}"></span>
+                        </p>
+                        <strong>Web Link:</strong>
+                        <p>
+                            <a href="#" target="_blank" th:href="${book.getInfoUrl()}" th:text="${book.getInfoUrl()}"></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
             <br />
-
-            <strong>Book Authors:</strong>
-            <ul th:each="author : ${book.getAuthors()}"> <!-- Displays Author of the book -->
-                <li th:text="${author}"></li>
-            </ul>
-            </p>
+            <a href="/" th:href="@{/}">Return to books</a>
         </div>
-        </div>
+    </div>
+</div>
 
-    </section>
-
-</main>
-
-<div th:insert="~{fragments/footer :: footer}"></div>
 <div th:insert="~{fragments/scriptFooter :: scriptFooter}"></div>
 </body>
 </html>
