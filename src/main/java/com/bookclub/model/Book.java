@@ -13,76 +13,70 @@ public class Book {
     private String isbn; // Holds ISBN code
     private String title; //Holds Books title
     private String description; // Holds description for book
+    private String infoUrl; //Gets the info of where the book is
     private int numOfPages; //Holds the number of pages in the book
-    private List<String> authors; //Creates a list of authors
 
     //Default Constructor
-    public Book() {
-        this.isbn = "";
-        this.title = "";
-        this.description = "";
-        this.numOfPages = 0;
-    }
-
-    //Constructor
-    public Book(String isbn, String title, String description, int numOfPages, List<String> authors) {
+    public Book(String isbn, String title, String description, String infoUrl, int numOfPages) {
         this.isbn = isbn;
         this.title = title;
         this.description = description;
+        this.infoUrl = infoUrl;
         this.numOfPages = numOfPages;
-        this.authors = authors;
+    }
+
+    //Constructor
+    public Book(String isbn, String title, String infoUrl) {
+        this.isbn = isbn;
+        this.title = title;
+
     }
 
     //Getter and Setter methods below
-    public String getIsbn() {
-        return this.isbn;
-    }
-
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
 
-    public String getTitle() {
-        return this.title;
+    public String getIsbn() {
+        return isbn;
     }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public String getDescription() {
-        return this.description;
+    public String getTitle() {
+        return title;
     }
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public int getNumOfPages() {
-        return this.numOfPages;
+    public String getDescription() {
+        return description;
     }
 
     public void setNumOfPages(int numOfPages) {
         this.numOfPages = numOfPages;
     }
 
-    public List<String> getAuthors() {
-        return this.authors;
+    public int getNumOfPages() {
+        return numOfPages;
     }
 
-    public void setAuthors(List<String> authors) {
-        this.authors = authors;
+    public void setInfoUrl(String infoUrl) {
+        this.infoUrl = infoUrl;
+    }
+
+    public String getInfoUrl() {
+        return infoUrl;
     }
 
     //Returns the data being held by each string in a specific format
     @Override
     public String toString() {
-        String temp = "Book{isbn=<" + this.isbn + ">," +
-                "title=<" + this.title + ">," +
-                "description=<" + this.description +">," +
-                "numOfPages=<" + this.numOfPages + ">," +
-                "authors=<" + this.authors + "}";
-        return temp;
+        return String.format("Book{isbn=%s, title=%s, description=%s, infoUrl=%s, numOfPages=%s}", isbn, title, description, infoUrl, numOfPages);
     }
 
 }
