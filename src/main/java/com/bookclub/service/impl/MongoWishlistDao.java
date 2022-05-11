@@ -18,43 +18,50 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository("wishlistDao")
-//Implements the wishlistdao interface
 public class MongoWishlistDao implements WishlistDao {
 
     @Autowired
-    private MongoTemplate mongoTemplate; //Holds the mongoTemplate
+    private MongoTemplate mongoTemplate;
 
     @Override
     public void add(WishlistItem entity) {
-        mongoTemplate.save(entity); //Finds all the lists and allows adding to the wishlist
+        mongoTemplate.save(entity);
     }
 
     @Override
-    //Updates the wishlist
     public void update(WishlistItem entity) {
+        WishlistItem wishlistItem = mongoTemplate.findById(entity.getId(), WishlistItem.class);
 
+        if (wishlistItem != null) {
+            wishlistItem.setIsbn(entity.getIsbn()); //Update ISBN
+            wishlistItem.setTitle(entity.getTitle()); //Update the Title of the book
+            wishlistItem.setUsername(entity.getUsername()); //Save updates to username
+
+            mongoTemplate.save(wishlistItem); //Saves wishlist
+        }
     }
 
     @Override
-    //Allows user to remove item from the wishlist
-    public boolean remove(WishlistItem entity) {
+    public boolean remove(String key) {
         Query query = new Query();
 
-        query.addCriteria(Criteria.where("id").is(entity.getId()));
+        query.addCriteria(Criteria.where("id").is(key));
 
-        mongoTemplate.remove(query, WishlistItem.class);
+        mongoTemplate.remove(query, WishlistItem.class); //Remove from the wishlist
 
         return true;
     }
 
     @Override
-    //Returns the list from the wishlist
-    public List<WishlistItem> list() {
-        return mongoTemplate.findAll(WishlistItem.class);
+    public List<WishlistItem> list(String username) {
+        Query query = new Query();
+
+        query.addCriteria(Criteria.where("username").is(username)); //Grabs wishlist based on the username
+
+        return mongoTemplate.find(query, WishlistItem.class);
     }
 
     @Override
-    //Finds the wishlist item within the wishlist
     public WishlistItem find(String key) {
         return mongoTemplate.findById(key, WishlistItem.class);
     }
