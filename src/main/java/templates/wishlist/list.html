@@ -48,11 +48,11 @@ Additional Modifications by James Tabor -->
             }
         }
 
-        function buildTable (books) {
-            let tableString = `<table class="table"><tr><th>ISBN</th><th>Title</th><th>Functions</th></tr>`; <!-- Provides book within a table with title and ISBN code -->
+       function buildTable (books) {
+            let tableString = `<table class="table"><tr><th>ISBN</th><th>Title</th><th>Functions</th></tr>`; <!-- Provides table with ISBN, title and functions-->
 
             for (let book of books) {
-                tableString += `<tr><td>${book.isbn}</td><td>${book.title}</td><td><a href="#">Edit</a> | <a href="#">Delete</a></td></tr>`; <!-- Allows user to delete a book from the table -->
+                tableString += `<tr><td>${book.isbn}</td><td>${book.title}</td><td><a href="/wishlist/${book.id}" th:href="@{/wishlist/${book.id}">Edit</a> | <a href="/wishlist/remove/${book.id}" th:href="@{/wishlist/remove/${book.id}">Delete</a></td></tr>`;
             }
 
             tableString += `</table>`
