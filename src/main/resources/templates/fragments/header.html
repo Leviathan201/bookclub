@@ -1,0 +1,55 @@
+<!-- Liang, Y.D. (2019). Introduction to Java Programming and Data Structures:
+Comprehensive Version (12th ed.). Pearson Education, Inc.
+Modifications by R. Krasso, 2021
+Additional Modifications by James Tabor -->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<!-- Header design -->
+<header th:fragment="header">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light"> <!--  Header color -->
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Bookclub</a>
+            <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false"
+                    aria-label="Toggle navigation"> <!--  Makes sure that the buttons work -->
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="navbar-item">
+                        <a class="nav-link" href="/about" th:href="@{/about}">About Us</a> <!-- Gives you the about us link -->
+                    </li>
+                    <li class="navbar-item">
+                        <a class="nav-link" href="/contact" th:href="@{/contact}">Contact Us</a> <!-- Gives you the contact us link -->
+                    </li>
+                    <li class="navbar-item">
+                        <a class="nav-link" href="/wishlist" th:href="@{/wishlist}">Wishlist</a> <!-- Gives you the link to the wishlist -->
+                    </li>
+                    <div class="nav navbar-nav ml-auto w-100 justify-content-center">
+                        <div sec:authorize="isAuthenticated()"> <!-- Authenticates the user if the user put in the correct password/username -->
+                            Logged in as <strong sec:authentication="name"></strong> <!-- Tells you which user your logged in as -->
+                        </div>
+                    </div>
+
+                    <ul class="nav navbar-nav ml-auto w-100 justify-content-end">
+                        <li class="nav-item">
+                            <a href="/swagger-ui.html" class="nav-link" target="_blank">OpenAPI Specification</a> <!-- Gives user access to the OpenAPI specifications of the wishlist-->
+                        </li>
+                        <li class="nav-item float-end">
+                            <a href="/logout" th:href="@{/logout}" class="nav-link float-end">Logout</a> <!-- Provided user the ability to logout -->
+                        </li>
+                    </ul>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+</body>
+</html>

@@ -25,19 +25,17 @@ public class RestBookDao implements BookDao {
     public RestBookDao() {  }
 
     @Override
-    public List<Book> list() {
-        String isbnString = "ISBN:9780593099322,9780261102361,9780261102378,9780590302715,9780316769532"; //Books are listed in order based on inputted ISBN
+    public List<Book> list(String key) {
+        Object doc = getBooksDoc(key);
 
-        Object doc = getBooksDoc(isbnString);
+        List<Book> books = new ArrayList<>();
 
-        List<Book> books = new ArrayList<Book>(); //Creates an array for all the books request
-
-        List<String> titles = JsonPath.read(doc, "$..title"); //Provides user with the title of the book
-        List<String> isbns = JsonPath.read(doc, "$..bib_key"); //Provides user with the isbn info of the book
-        List<String> infoUrls = JsonPath.read(doc, "$..info_url"); //Provides user with information about the book
+        List<String> titles = JsonPath.read(doc, "$..title"); //Finds the title of the book
+        List<String> isbns = JsonPath.read(doc, "$..bib_key");//Finds the ISBN for the book
+        List<String> infoUrls = JsonPath.read(doc, "$..info_url"); //Finds the info on the URL for the book
 
         for (int index = 0; index < titles.size(); index++) {
-            books.add(new Book(isbns.get(index), titles.get(index), infoUrls.get(index))); //Gives the users the ability to add a new book to the list
+            books.add(new Book(isbns.get(index), titles.get(index), infoUrls.get(index)));
         }
 
         return books;
